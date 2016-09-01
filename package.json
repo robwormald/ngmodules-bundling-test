@@ -1,0 +1,22 @@
+{
+  "name": "ngmodules-bundling-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rm -rf src/ngfactory",
+    "build": "npm run clean && ngc && node rollup.build.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@angular/compiler-cli": "^0.5.0"
+  },
+  "dependencies": {
+    "angular2-apollo": "^0.4.1",
+    "angularfire2": "^2.0.0-beta.3-pre",
+    "google-closure-compiler": "^20160713.2.0",
+    "google-closure-compiler-js": "^20160828.0.0"
+  }
+}

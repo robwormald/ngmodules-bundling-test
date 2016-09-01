@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "target": "es5",
+    "noImplicitAny": false,
+    "sourceMap": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "es2015",
+      "dom"
+    ],
+    "outDir": "lib",
+    "skipLibCheck": true,
+    "moduleResolution": "node",
+    "rootDir": "src",
+    "removeComments": true,
+    "baseUrl": ".",
+    "paths": {
+      "./ngfactory": [
+        "ngfactory/*"
+      ]
+    }
+   // "noEmitHelpers": false
+  },
+  "files": [
+    "src/main.ts",
+    "src/main-static.ts"
+  ],
+  "angularCompilerOptions": {
+    "debug": false,
+    "genDir": "src/ngfactory",
+    "trace": true,
+    "googleClosureOutput": true
+  }
+}

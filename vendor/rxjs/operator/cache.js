@@ -1,0 +1,47 @@
+import { Observable } from '../Observable';
+import { ReplaySubject } from '../ReplaySubject';
+/**
+ * @param bufferSize
+ * @param windowTime
+ * @param scheduler
+ * @return {Observable<any>}
+ * @method cache
+ * @owner Observable
+ */
+export function cache(bufferSize, windowTime, scheduler) {
+    if (bufferSize === void 0) { bufferSize = Number.POSITIVE_INFINITY; }
+    if (windowTime === void 0) { windowTime = Number.POSITIVE_INFINITY; }
+    var subject;
+    var source = this;
+    var refs = 0;
+    var outerSub;
+    var getSubject = function () {
+        subject = new ReplaySubject(bufferSize, windowTime, scheduler);
+        return subject;
+    };
+    return new Observable(function (observer) {
+        if (!subject) {
+            subject = getSubject();
+            outerSub = source.subscribe(function (value) { return subject.next(value); }, function (err) {
+                var s = subject;
+                subject = null;
+                s.error(err);
+            }, function () { return subject.complete(); });
+        }
+        refs++;
+        if (!subject) {
+            subject = getSubject();
+        }
+        var innerSub = subject.subscribe(observer);
+        return function () {
+            refs--;
+            if (innerSub) {
+                innerSub.unsubscribe();
+            }
+            if (refs === 0) {
+                outerSub.unsubscribe();
+            }
+        };
+    });
+}
+//# sourceMappingURL=cache.js.map
